@@ -1,0 +1,79 @@
+htop
+uname -a
+lscpu
+lla
+ls -lA
+ls
+ln -s /usr/share/data-minor-bioinf/assembly/* .
+ll
+ls oil_R* | xargs -I {} -P 10 sh -c "seqtk sample -s 2711 {} 5000000 > sub-{}"
+ll
+ls oilMP_S4_L001_R* | xargs -I {} -P 10 sh -c "seqtk sample -s 2711 {} 1500000 > sub-{}"
+ll
+fastqc sub-*
+multiqc .
+mkdir hw1
+ll
+mv *.zip *.html multiqc_data/ hw1/
+cd hw1/
+ll
+platanus trim sub-oil_R
+platanus_internal_trim sub-oilMP_S4_L001_R
+platanus_internal_trim sub-oilMP_S4_L001_R*
+ll
+ll ..
+platanus trim sub-oil_R*
+ll
+platanus_trim sub-oil_R*
+platanus_trim sub-oil_R.zip
+platanus_trim sub-oil_R*.zip
+cd ..
+ll
+mv *fastq hw1
+cd hw1/
+ll
+platanus_trim sub-oil_R*fastq
+platanus_internal_trim sub-oilMP_S4_L001_R*fastq
+mkdir trim
+ll
+history
+ll
+mv *trimmed trim/
+cd trim/
+ll
+fastqc
+fastqc *
+multiqc .
+cd ..
+mkdir contigs
+mv trim/*trimmed contigs/
+cd contigs/
+platanus assemble –o Contig –f sub-oil.trimmed
+platanus assemble –o Contig –f sub-oil*.trimmed 
+platanus_assemble –o Contig –f sub-oil*.trimmed 
+platanus assemble –o Contig –f sub-oil*.trimmed 
+platanus assemble Contig –f sub-oil*.trimmed 
+platanus assemble –f sub-oil*.trimmed 
+;;
+дд
+ll
+platanus assemble –f sub-oil_R*
+platanus assemble –f sub-oil
+platanus assemble -f sub-oil*.trimmed
+ll
+ll -h
+platanus scaffold -c out_contig.fa -IP1 *.trimmed -OP2 *.int_trimmed
+ll
+cd ..
+cd contigs/
+ll -h
+cd ..
+ll
+ll -h
+cd hw1/trim/
+platanus gap_close -c out_scaffold.fa -IP1 *.trimmed -OP2 *.int_trimmed
+ll
+cd ../contigs/
+platanus gap_close -c out_scaffold.fa -IP1 *.trimmed -OP2 *.int_trimmed
+ll
+history
